@@ -1,9 +1,9 @@
 import React from 'react'
 import axios from 'axios';
-// import Loader1 from '../Loaders/loader1';
 
 import { GlobalContext } from './globalContext';
 import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
+import Loader from '../components/loader';
 
 export const AuthContext = React.createContext({
     isLoading: true,
@@ -24,6 +24,7 @@ export default function AuthContextProvider(props) {
     const globalContext = React.useContext(GlobalContext);
 
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+    const [time, setTime] = React.useState(new Date().getTime());
     const [isLoading, setIsLoading] = React.useState(true);
     const [willSignIn, setWillSignIn] = React.useState(true);
     const [user, setUser] = React.useState({
@@ -36,6 +37,7 @@ export default function AuthContextProvider(props) {
     async function gAuthResponse(res) {
         try {
             console.log(res);
+            setIsLoading(true);
             const serverResponse = await axios.post("/api/auth/login", { token: res.tokenId });
             const { data } = serverResponse;
 
@@ -126,7 +128,7 @@ export default function AuthContextProvider(props) {
                     variant: 'error',
                     transition: 'slideRight',
                 });
-            });;
+            });
 
         } catch (error) {
             console.error(error);
@@ -151,21 +153,35 @@ export default function AuthContextProvider(props) {
                         avatar: user?.avatar,
                         token: user?.token,
                     });
-                    setIsLoading(false);
+                    const currentTime = new Date().getTime();
+                    if ((time + 5000) < currentTime) {
+                        setIsLoading(false);
+                    } else {
+                        setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+                    }
                     setIsAuthenticated(true);
                     setWillSignIn(true);
                 } else {
                     setUser({});
-                    setIsLoading(false);
+                    const currentTime = new Date().getTime();
+                    if ((time + 5000) < currentTime) {
+                        setIsLoading(false);
+                    } else {
+                        setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+                    }
                     setIsAuthenticated(false);
                     setWillSignIn(false);
                 }
             }).catch(error => {
+                setIsLoading(false);
+                setIsAuthenticated(false);
                 setWillSignIn(false);
             });
 
         } catch (error) {
             console.error(error);
+            setIsLoading(false);
+            setIsAuthenticated(false);
             setWillSignIn(false);
             globalContext.showSnackBar(error.message, {
                 variant: 'error',
@@ -196,7 +212,7 @@ export default function AuthContextProvider(props) {
             logout: () => { signOut() },
             isLogoutDisabled: !isLoginLoaded,
         }}>
-            {isLoading ? "<Loader1 />" : props.children}
+            {isLoading ? <Loader /> : props.children}
         </AuthContext.Provider>
     )
 }

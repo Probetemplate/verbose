@@ -25,6 +25,7 @@ import { AuthContext } from '../contexts/authContext';
 const pages = ['Products', 'Pricing', 'Blog'];
 
 export default function Header(props) {
+    const auth = React.useContext(AuthContext);
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -174,8 +175,10 @@ export default function Header(props) {
                         <Tooltip title="Open settings">
                             <IconButton onClick={toggleDrawer("right", true)} sx={{ p: 0 }}>
                                 <Chip
-                                    avatar={<Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />}
-                                    label="Remy Sharp"
+                                    avatar={<Avatar alt={auth.isAuthenticated ? auth.user.name : "Google"} src={auth.isAuthenticated ? auth.user.avatar : ""} imgProps={{
+                                        referrerPolicy: 'no-referrer',
+                                    }} />}
+                                    label={auth.user.name}
                                     variant="outlined"
                                     sx={{
                                         cursor: "pointer"
