@@ -1,9 +1,12 @@
-import { setCookie, getCookie } from 'cookies-next';
-import clientPromise from '../../../src/mongodb';
+const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
+import { ObjectId } from "mongodb";
+import { getCookie, setCookie } from 'cookies-next';
+import clientPromise from "../../../src/mongodb";
 
 export default async function handeler(req, res) {
     try {
+
         const mongoClient = await clientPromise;
         const db = mongoClient.db("auth");
 
@@ -16,19 +19,27 @@ export default async function handeler(req, res) {
                 if (e) {
                     const new_jwtToken = jwt.sign({ sub: sub }, process.env.PRIVATE_KEY);
 
-                    setCookie('jwtAuthToken', new_jwtToken, { req, res });
-                    return res.status(200).json({
-                        status: 200,
-                        type: "success",
-                        message: "Successfully LoggedIn",
-                        data: {
-                            id: e._id.toString(),
-                            name: e.name,
-                            email: e.email,
-                            avatar: e.avatar,
-                            my_quizes: e.my_quizes,
+                    const data = {
+                        ...req.body.data,
+                        id: e.my_quizes?.length || 1
+                    };
+
+                    const response = await db.collection("users").updateOne({ sub: e.sub }, {
+                        "$push": {
+                            my_quizes: data
                         }
                     });
+
+                    setCookie('jwtAuthToken', new_jwtToken, { req, res });
+                    return res.status(201).json({
+                        status: 201,
+                        type: "success",
+                        message: "Quiz Hosted Successfully",
+                        data: {
+                            link: `/${e._id.toString()}/${e.my_quizes?.length || 1}`
+                        }
+                    });
+
                 } else {
                     return res.status(404).json({
                         status: 404,

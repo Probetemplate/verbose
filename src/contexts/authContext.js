@@ -25,7 +25,7 @@ export default function AuthContextProvider(props) {
 
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);
     const [time, setTime] = React.useState(new Date().getTime());
-    const [isLoading, setIsLoading] = React.useState(true);
+    const [isLoading, setIsLoading] = React.useState(false);
     const [willSignIn, setWillSignIn] = React.useState(true);
     const [user, setUser] = React.useState({
         name: '',
@@ -44,13 +44,20 @@ export default function AuthContextProvider(props) {
             if (data.status === 200 || data.status === 201) {
                 const user = data?.data;
                 setUser({
+                    id: user?.id,
                     name: user?.name,
                     email: user?.email,
                     avatar: user?.avatar,
+                    my_quizes: user?.my_quizes,
                     token: res.tokenId,
                 });
                 setIsAuthenticated(true);
-                setIsLoading(false);
+                const currentTime = new Date().getTime();
+                if ((time + 5000) < currentTime) {
+                    setIsLoading(false);
+                } else {
+                    setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+                }
 
                 globalContext.showSnackBar(data.message, {
                     variant: 'success',
@@ -58,7 +65,12 @@ export default function AuthContextProvider(props) {
                 });
             } else {
                 setUser({});
-                setIsLoading(false);
+                const currentTime = new Date().getTime();
+                if ((time + 5000) < currentTime) {
+                    setIsLoading(false);
+                } else {
+                    setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+                }
                 setIsAuthenticated(false);
                 globalContext.showSnackBar(data.message, {
                     variant: 'error',
@@ -69,7 +81,12 @@ export default function AuthContextProvider(props) {
         } catch (error) {
             console.error(error);
             setUser({});
-            setIsLoading(false);
+            const currentTime = new Date().getTime();
+            if ((time + 5000) < currentTime) {
+                setIsLoading(false);
+            } else {
+                setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+            }
             setIsAuthenticated(false);
             globalContext.showSnackBar(error.message, {
                 variant: 'error',
@@ -84,7 +101,12 @@ export default function AuthContextProvider(props) {
         onFailure: (err) => {
             console.log(err);
             setUser({});
-            setIsLoading(false);
+            const currentTime = new Date().getTime();
+            if ((time + 5000) < currentTime) {
+                setIsLoading(false);
+            } else {
+                setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+            }
             setIsAuthenticated(false);
 
             const details = {
@@ -110,7 +132,12 @@ export default function AuthContextProvider(props) {
                 if (res.data.status === 200) {
                     setUser({});
                     setIsAuthenticated(false);
-                    setIsLoading(false);
+                    const currentTime = new Date().getTime();
+                    if ((time + 5000) < currentTime) {
+                        setIsLoading(false);
+                    } else {
+                        setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+                    }
                     globalContext.showSnackBar(res.data.message, {
                         variant: 'success',
                         transition: 'slideRight',
@@ -148,9 +175,11 @@ export default function AuthContextProvider(props) {
                 if (data.status === 200) {
                     const user = data?.data;
                     setUser({
+                        id: user?.id,
                         name: user?.name,
                         email: user?.email,
                         avatar: user?.avatar,
+                        my_quizes: user?.my_quizes,
                         token: user?.token,
                     });
                     const currentTime = new Date().getTime();
@@ -173,14 +202,24 @@ export default function AuthContextProvider(props) {
                     setWillSignIn(false);
                 }
             }).catch(error => {
-                setIsLoading(false);
+                const currentTime = new Date().getTime();
+                if ((time + 5000) < currentTime) {
+                    setIsLoading(false);
+                } else {
+                    setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+                }
                 setIsAuthenticated(false);
                 setWillSignIn(false);
             });
 
         } catch (error) {
             console.error(error);
-            setIsLoading(false);
+            const currentTime = new Date().getTime();
+            if ((time + 5000) < currentTime) {
+                setIsLoading(false);
+            } else {
+                setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+            }
             setIsAuthenticated(false);
             setWillSignIn(false);
             globalContext.showSnackBar(error.message, {
@@ -196,7 +235,12 @@ export default function AuthContextProvider(props) {
 
     React.useEffect(() => {
         if (isLoginLoaded && !willSignIn) {
-            setIsLoading(false);
+            const currentTime = new Date().getTime();
+            if ((time + 5000) < currentTime) {
+                setIsLoading(false);
+            } else {
+                setTimeout(() => setIsLoading(false), (time + 5000) - currentTime);
+            }
         }
     }, [isLoginLoaded, willSignIn]);
 

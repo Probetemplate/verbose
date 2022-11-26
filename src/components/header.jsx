@@ -18,9 +18,11 @@ import Tooltip from '@mui/material/Tooltip';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
 
 import Logo from '../../assets/images/logo2.png';
 import { AuthContext } from '../contexts/authContext';
+import Link from 'next/link';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -59,36 +61,40 @@ export default function Header(props) {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
 
-                    <Box sx={{
-                        display: { xs: 'none', md: 'flex' },
-                        mr: 1,
-                        alignItems: "center",
+                    <Link href="/" style={{
+                        textDecoration: "none",
                     }}>
-                        <Image
-                            src={Logo}
-                            alt="Logo"
-                            height={60}
-                            width={60}
-                        />
+                        <Box sx={{
+                            display: { xs: 'none', md: 'flex' },
+                            mr: 1,
+                            alignItems: "center",
+                            textDecoration: "none",
+                        }}>
+                            <Image
+                                src={Logo}
+                                alt="Logo"
+                                height={30}
+                                width={30}
+                            />
 
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 2,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                fontSize: "1.7em",
-                                letterSpacing: '.1rem',
-                                color: 'text.primary',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            <span style={{ color: "#48e0ba" }}>CODE</span>CLAUSE
-                        </Typography>
-                    </Box>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                sx={{
+                                    mr: 2,
+                                    ml: 1,
+                                    fontFamily: 'monospace',
+                                    fontWeight: 700,
+                                    fontSize: "1.7em",
+                                    letterSpacing: '.1rem',
+                                    color: 'text.primary',
+                                    textDecoration: 'none',
+                                }}
+                            >
+                                <span style={{ color: "#48e0ba", textDecoration: "none", }}>CODE</span>CLAUSE
+                            </Typography>
+                        </Box>
+                    </Link>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -133,30 +139,37 @@ export default function Header(props) {
                         alignItems: "center",
                         flexGrow: 1,
                     }}>
-                        <Image
-                            src={Logo}
-                            alt="Logo"
-                            height={60}
-                            width={60}
-                        />
+                        <Link href="/" style={{
+                            display: 'flex',
+                            mr: 1,
+                            alignItems: "center",
+                            textDecoration: "none",
+                            flexGrow: 1,
+                        }}>
+                            <Image
+                                src={Logo}
+                                alt="Logo"
+                                height={25}
+                                width={25}
+                            />
 
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 2,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                fontSize: "1.7em",
-                                letterSpacing: '.1rem',
-                                color: 'text.primary',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            <span style={{ color: "#48e0ba" }}>CODE</span>CLAUSE
-                        </Typography>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                sx={{
+                                    mr: 2,
+                                    ml: 1,
+                                    fontFamily: 'monospace',
+                                    fontWeight: 700,
+                                    fontSize: "1.3em",
+                                    letterSpacing: '.1rem',
+                                    color: 'text.primary',
+                                    textDecoration: 'none',
+                                }}
+                            >
+                                <span style={{ color: "#48e0ba" }}>CODE</span>CLAUSE
+                            </Typography>
+                        </Link>
                     </Box>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -311,6 +324,71 @@ const SideBar = (Props) => {
                 <Divider sx={{
                     borderColor: "border.secondary",
                 }} />
+
+                <Box sx={{
+                    py: '1rem',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    gap: "1rem"
+                }}>
+
+                    <Box>
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Create A New Quiz">
+                                <Link href="/create" style={{
+                                    textDecoration: 'none',
+                                }}>
+                                    <Button variant="outlined" color="inherit" startIcon={<AddIcon />} sx={{
+                                        color: '#fff'
+                                    }}>
+                                        Create Quiz
+                                    </Button>
+                                </Link>
+                            </Tooltip>
+                        </Box>
+                    </Box>
+
+                    <Box sx={{
+                        width: "100%",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        gap: ".5rem"
+                    }}>
+                        {auth.user?.my_quizes?.map((quiz, index) =>
+                            <Tooltip title={`${auth.user?.id}/${quiz.id}`} key={index}>
+                                <Link href={`${auth.user?.id}/${quiz.id}`} style={{
+                                    textDecoration: 'none',
+                                    width: "100%"
+                                }}>
+                                    <Box sx={{
+                                        width: "100%",
+                                        borderColor: "border.secondary",
+                                        border: "1px solid",
+                                        borderRadius: "5px",
+                                        py: 1,
+                                        px: 2,
+                                    }}>
+                                        <Typography variant="h6" component="h2" sx={{
+                                            fontSize: "1em"
+                                        }}>
+                                            {quiz.title}
+                                        </Typography>
+                                        <Typography variant="h6" component="p" sx={{
+                                            fontSize: "0.8em"
+                                        }}>
+                                            {quiz.description}
+                                        </Typography>
+                                    </Box>
+                                </Link>
+                            </Tooltip>
+                        )}
+                    </Box>
+
+                </Box>
 
             </Box>
         </Box>

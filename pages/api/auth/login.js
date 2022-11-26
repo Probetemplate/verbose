@@ -40,26 +40,15 @@ export default async function handeler(req, res) {
                     type: "success",
                     message: "Successfully Registered",
                     data: {
+                        id: e._id.toString(),
                         name: e.name,
                         email: e.email,
                         avatar: e.avatar,
+                        my_quizes: e.my_quizes,
                         token: token,
                     }
                 });
 
-                // return userExist.save().then(async e => {
-                //     return res.status(200).cookie("jwtAuthToken", new_jwtToken).json({
-                //         status: 200,
-                //         type: "success",
-                //         message: "Sccessfully LoggedIn",
-                //         data: {
-                //             name: e.name,
-                //             email: e.email,
-                //             avatar: e.picture,
-                //             token: token,
-                //         }
-                //     })
-                // });
             } else { // register
 
                 const response = await db.collection("users").insertOne({
@@ -68,6 +57,7 @@ export default async function handeler(req, res) {
                     name: payload.name,
                     email: payload.email,
                     avatar: payload.picture,
+                    my_quizes: []
                 });
 
                 const e = await db.collection("users").findOne({ sub: payload.sub });
@@ -80,16 +70,18 @@ export default async function handeler(req, res) {
                     type: "success",
                     message: "Successfully Registered",
                     data: {
+                        id: e._id.toString(),
                         name: e.name,
                         email: e.email,
                         avatar: e.avatar,
+                        my_quizes: e.my_quizes,
                         token: token,
                     }
                 });
             }
         })
 
-    } catch {
+    } catch (err) {
         console.error(">>===> Error: ", err);
         res.status(500).json({
             status: 500,

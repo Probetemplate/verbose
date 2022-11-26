@@ -27,7 +27,7 @@ export default function Loader(props) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                // gap: "0.3em"
+                gap: "0.5em"
             }}>
                 <Box sx={{
                     display: "flex",
@@ -37,8 +37,8 @@ export default function Loader(props) {
                     <Image
                         src={Logo}
                         alt="Logo"
-                        height={60}
-                        width={60}
+                        height={30}
+                        width={30}
                     />
 
                     <Typography
@@ -48,6 +48,7 @@ export default function Loader(props) {
                         href="/"
                         sx={{
                             mr: 2,
+                            ml: 1,
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             fontSize: "1.7em",
