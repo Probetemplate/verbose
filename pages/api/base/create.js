@@ -21,7 +21,8 @@ export default async function handeler(req, res) {
 
                     const data = {
                         ...req.body.data,
-                        id: e.my_quizes?.length || 1
+                        id: e.my_quizes?.length || 1,
+                        participents: [],
                     };
 
                     const response = await db.collection("users").updateOne({ sub: e.sub }, {

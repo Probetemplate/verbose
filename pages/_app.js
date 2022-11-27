@@ -10,7 +10,8 @@ import createEmotionCache from '../src/utils/createEmotionCache';
 import GlobalContextProvider from "../src/contexts/globalContext";
 import AuthContextProvider from "../src/contexts/authContext";
 
-import '../styles/globals.css'
+import '../styles/globals.css';
+import 'react-circular-progressbar/dist/styles.css';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

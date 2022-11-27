@@ -20,10 +20,12 @@ import PublishIcon from '@mui/icons-material/Publish';
 
 import { GlobalContext } from '../contexts/globalContext';
 import axios from 'axios';
+import { AuthContext } from '../contexts/authContext';
 
 export default function CreateQuestionsList(props) {
 
     const globalContext = React.useContext(GlobalContext);
+    const authContext = React.useContext(AuthContext);
     const Router = useRouter();
 
     const [isBrowser, setIsBrowser] = React.useState(false);
@@ -47,10 +49,15 @@ export default function CreateQuestionsList(props) {
     async function publishHandel(e) {
         try {
 
-            const res = await axios.post("/api/base/create", { data: props.data });
+            const res = await axios.post(props.editing ? "/api/base/edit" : "/api/base/create", {
+                data: props.data,
+                userId: Router.query.userId,
+                quizId: Router.query.id,
+            });
 
-            if (res.status === 201) {
-                Router.push(res.data?.data?.link);
+            if (res.status === 200) {
+                authContext.refresh();
+                // Router.push(res.data?.data?.link);
 
                 globalContext.showSnackBar(res.data.message, {
                     variant: 'success',
@@ -196,6 +203,71 @@ export default function CreateQuestionsList(props) {
                                                     display: "flex",
                                                     alignItems: "center",
                                                 }}>
+                                                    <TextField
+                                                        id="score"
+                                                        label="Score"
+                                                        variant="standard"
+                                                        type="number"
+                                                        sx={{
+                                                            color: "#fff",
+                                                            fontSize: "100px",
+                                                            '& > div::before': {
+                                                                borderColor: "#aaa",
+                                                            },
+                                                            '& > div::after': {
+                                                                borderColor: "#90caf9",
+                                                            },
+                                                            '& > label.Mui-focused': {
+                                                                color: "#90caf9"
+                                                            },
+                                                            mb: 2
+                                                        }}
+                                                        value={props.data?.questions[index]?.score}
+                                                        onChange={e => {
+                                                            props.setData(data => ({
+                                                                ...data,
+                                                                questions: [
+                                                                    ...data.questions?.map((a, i) => i === index ? ({
+                                                                        ...a,
+                                                                        score: parseInt(e.target.value)
+                                                                    }) : a)
+                                                                ]
+                                                            }))
+                                                        }}
+                                                    />
+                                                    <TextField
+                                                        id="time"
+                                                        label="Time"
+                                                        variant="standard"
+                                                        type="number"
+                                                        sx={{
+                                                            color: "#fff",
+                                                            fontSize: "100px",
+                                                            '& > div::before': {
+                                                                borderColor: "#aaa",
+                                                            },
+                                                            '& > div::after': {
+                                                                borderColor: "#90caf9",
+                                                            },
+                                                            '& > label.Mui-focused': {
+                                                                color: "#90caf9"
+                                                            },
+                                                            mb: 2
+                                                        }}
+                                                        value={props.data?.questions[index]?.time}
+                                                        onChange={e => {
+                                                            props.setData(data => ({
+                                                                ...data,
+                                                                questions: [
+                                                                    ...data.questions?.map((a, i) => i === index ? ({
+                                                                        ...a,
+                                                                        time: parseInt(e.target.value)
+                                                                    }) : a)
+                                                                ]
+                                                            }))
+                                                        }}
+                                                    />
+
                                                     <div style={{ flexGrow: 1 }}></div>
 
                                                     <Tooltip title="Add New Option">

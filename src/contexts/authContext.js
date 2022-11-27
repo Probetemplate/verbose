@@ -17,7 +17,7 @@ export const AuthContext = React.createContext({
     isLogoutLoaded: false,
 });
 
-const clientId = "449979043087-ucr7kttd5qfabke8doch04rpurpmatpr.apps.googleusercontent.com";
+const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 export default function AuthContextProvider(props) {
 
@@ -25,7 +25,7 @@ export default function AuthContextProvider(props) {
 
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);
     const [time, setTime] = React.useState(new Date().getTime());
-    const [isLoading, setIsLoading] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(true);
     const [willSignIn, setWillSignIn] = React.useState(true);
     const [user, setUser] = React.useState({
         name: '',

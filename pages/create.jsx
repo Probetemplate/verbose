@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
+// import { useRouter } from 'next/router';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -8,6 +9,7 @@ import Header from '../src/components/header'
 import { AuthContext } from '../src/contexts/authContext';
 import Banner from "../assets/images/banner.png";
 import CreateQuestionsList from '../src/components/CreateQuestionsList';
+import { Typography } from '@mui/material';
 
 export default function create(props) {
 
@@ -20,40 +22,17 @@ export default function create(props) {
         questions: [
             {
                 id: 1,
-                question: "1",
+                question: "",
                 type: "",
                 score: 0,
-                options: [""],
-                correctIndex: 0,
-            },
-            {
-                id: 2,
-                question: "2",
-                type: "",
-                score: 0,
-                options: [""],
-                correctIndex: 0,
-            },
-            {
-                id: 3,
-                question: "3",
-                type: "",
-                score: 0,
-                options: [""],
-                correctIndex: 0,
-            },
-            {
-                id: 4,
-                question: "4",
-                type: "",
-                score: 0,
+                time: 60,
                 options: [""],
                 correctIndex: 0,
             },
         ],
     });
 
-    return (
+    return auth.isAuthenticated ? (
         <Box sx={{
             position: "relative",
             width: "100%",
@@ -158,5 +137,31 @@ export default function create(props) {
                 </Box>
             </Box>
         </Box>
-    )
+    ) : <Box sx={{
+        position: "relative",
+        width: "100%",
+        maxWidth: "100%",
+        minHeight: "100%",
+        bgcolor: "background.paper",
+        color: "text.primary",
+        p: 0,
+        m: 0,
+    }}>
+
+        <Header />
+
+        <Box sx={{
+            width: "100%",
+            height: "100%",
+            minHeight: "100%",
+            display: "grid",
+            placeItems: "center",
+            py: 5,
+        }}>
+            <Typography variant='h6' component="h6">
+                You Need To Be Logged In To Create a Quiz
+            </Typography>
+        </Box>
+
+    </Box>;
 }

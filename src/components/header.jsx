@@ -19,6 +19,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 import Logo from '../../assets/images/logo2.png';
 import { AuthContext } from '../contexts/authContext';
@@ -359,32 +361,81 @@ const SideBar = (Props) => {
                         gap: ".5rem"
                     }}>
                         {auth.user?.my_quizes?.map((quiz, index) =>
-                            <Tooltip title={`${auth.user?.id}/${quiz.id}`} key={index}>
-                                <Link href={`${auth.user?.id}/${quiz.id}`} style={{
-                                    textDecoration: 'none',
-                                    width: "100%"
+                            <Box sx={{
+                                position: "relative",
+                                width: "100%",
+                                borderColor: "border.secondary",
+                                border: "1px solid",
+                                borderRadius: "5px",
+                                py: 1,
+                                px: 2,
+                                pr: "40px",
+                            }}>
+                                <Typography
+                                    variant="h6"
+                                    component="h2"
+                                    sx={{
+                                        fontSize: "1em",
+                                        height: "25px",
+                                        display: '-webkit-box',
+                                        overflow: 'hidden',
+                                        WebkitBoxOrient: 'vertical',
+                                        WebkitLineClamp: 1,
+                                    }}
+                                >
+                                    {quiz.title}
+                                </Typography>
+                                <Typography
+                                    variant="h6"
+                                    component="p"
+                                    sx={{
+                                        fontSize: "0.8em",
+                                        height: "41px",
+                                        display: '-webkit-box',
+                                        overflow: 'hidden',
+                                        WebkitBoxOrient: 'vertical',
+                                        WebkitLineClamp: 2,
+                                    }}
+                                >
+                                    {quiz.description}
+                                </Typography>
+
+                                <Box sx={{
+                                    position: "absolute",
+                                    top: 0,
+                                    right: 0,
+                                    width: "40px",
+                                    height: "100%",
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                 }}>
-                                    <Box sx={{
-                                        width: "100%",
-                                        borderColor: "border.secondary",
-                                        border: "1px solid",
-                                        borderRadius: "5px",
-                                        py: 1,
-                                        px: 2,
-                                    }}>
-                                        <Typography variant="h6" component="h2" sx={{
-                                            fontSize: "1em"
+
+                                    <Tooltip title="Open Link In New Tab">
+                                        <Link href={`/${auth.user?.id}/${quiz.id}`} target="_blank" style={{
+                                            textDecoration: 'none',
+                                            width: "100%"
                                         }}>
-                                            {quiz.title}
-                                        </Typography>
-                                        <Typography variant="h6" component="p" sx={{
-                                            fontSize: "0.8em"
+                                            <IconButton aria-label="open" color="inherit">
+                                                <OpenInNewIcon />
+                                            </IconButton>
+                                        </Link>
+                                    </Tooltip>
+
+                                    <Tooltip title="Admin Panel">
+                                        <Link href={`/${auth.user?.id}/${quiz.id}/admin`} target="_blank" style={{
+                                            textDecoration: 'none',
+                                            width: "100%"
                                         }}>
-                                            {quiz.description}
-                                        </Typography>
-                                    </Box>
-                                </Link>
-                            </Tooltip>
+                                            <IconButton aria-label="admin" color="inherit">
+                                                <AdminPanelSettingsIcon />
+                                            </IconButton>
+                                        </Link>
+                                    </Tooltip>
+
+                                </Box>
+                            </Box>
                         )}
                     </Box>
 
