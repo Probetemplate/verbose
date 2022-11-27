@@ -355,7 +355,7 @@ function Item(props) {
                     }}
                 >
                     {props.data?.options?.map((a, i) => (
-                        <Box sx={{
+                        <Box key={i} sx={{
                             width: "100%",
                             display: "flex",
                             flexDirection: "row",

@@ -361,7 +361,7 @@ const SideBar = (Props) => {
                         gap: ".5rem"
                     }}>
                         {auth.user?.my_quizes?.map((quiz, index) =>
-                            <Box sx={{
+                            <Box key={index} sx={{
                                 position: "relative",
                                 width: "100%",
                                 borderColor: "border.secondary",
