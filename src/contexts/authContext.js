@@ -123,6 +123,8 @@ export default function AuthContextProvider(props) {
         },
         cookiePolicy: 'single_host_origin',
         fetchBasicProfile: true,
+        // hostedDomain: process.env.NEXT_PUBLIC_HOSTED_DOMAIN,
+        redirectUri: process.env.NEXT_PUBLIC_REDIRECT_URI
     });
 
     function signOut(e) {
