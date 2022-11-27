@@ -29,7 +29,7 @@ function a11yProps(index) {
     };
 }
 
-export default function edit(props) {
+export default function Admin(props) {
 
     const Router = useRouter();
     const theme = useTheme();

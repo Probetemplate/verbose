@@ -11,7 +11,7 @@ import Banner from "../assets/images/banner.png";
 import CreateQuestionsList from '../src/components/CreateQuestionsList';
 import { Typography } from '@mui/material';
 
-export default function create(props) {
+export default function Create(props) {
 
     const auth = React.useContext(AuthContext);
 
