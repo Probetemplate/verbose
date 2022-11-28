@@ -119,11 +119,11 @@ export default function Footer(props) {
                     >Useful Links</Typography>
 
                     <ul>
-                        <li><a href="https://codeclause.com/" target="_blank">Home</a></li>
-                        <li><a href="https://codeclause.com/About" target="_blank">About us</a></li>
-                        <li><a href="https://codeclause.com/Services" target="_blank">Services</a></li>
-                        <li><a href="https://codeclause.com/Careers" target="_blank">Careers</a></li>
-                        <li><a href="https://internship.codeclause.com" target="_blank">Internship Program</a></li>
+                        <li><a href="https://codeclause.com/" target="_blank" rel="noreferrer">Home</a></li>
+                        <li><a href="https://codeclause.com/About" target="_blank" rel="noreferrer">About us</a></li>
+                        <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Services</a></li>
+                        <li><a href="https://codeclause.com/Careers" target="_blank" rel="noreferrer">Careers</a></li>
+                        <li><a href="https://internship.codeclause.com" target="_blank" rel="noreferrer">Internship Program</a></li>
                     </ul>
                 </Box>
 
@@ -171,11 +171,11 @@ export default function Footer(props) {
                     >Our Services</Typography>
 
                     <ul>
-                        <li><a href="https://codeclause.com/Services" target="_blank">Internet of Things</a></li>
-                        <li><a href="https://codeclause.com/Services" target="_blank">Automation AI/ML</a></li>
-                        <li><a href="https://codeclause.com/Services" target="_blank">Software Development</a></li>
-                        <li><a href="https://codeclause.com/Services" target="_blank">Cloud</a></li>
-                        <li><a href="https://codeclause.com/Services" target="_blank">Graphic Design</a></li>
+                        <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Internet of Things</a></li>
+                        <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Automation AI/ML</a></li>
+                        <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Software Development</a></li>
+                        <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Cloud</a></li>
+                        <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Graphic Design</a></li>
                     </ul>
                 </Box>
 
@@ -205,7 +205,7 @@ export default function Footer(props) {
                         }}
                     >Join internship program and get certified by CodeClause.</Typography>
 
-                    <a href="https://internship.codeclause.com" target="_blank">
+                    <a href="https://internship.codeclause.com" target="_blank" rel="noreferrer">
                         <input style={{
                             backgroundColor: "transparent",
                             borderColor: "#35F4C5",
@@ -258,7 +258,7 @@ export default function Footer(props) {
                                 sm: "left"
                             }
                         }}
-                    >Designed by <a href="https://codeclause.com/" target="_blank" style={{
+                    >Designed by <a href="https://codeclause.com/" target="_blank" rel="noreferrer" style={{
                         color: "#48DFBA",
                         textDecoration: "none"
                     }}>CodeClause</a></Typography>
@@ -293,16 +293,16 @@ export default function Footer(props) {
                         }
                     }
                 }}>
-                    <a href='https://wa.me/917030020973?text=' target="_blank">
+                    <a href='https://wa.me/917030020973?text=' target="_blank" rel="noreferrer">
                         <WhatsAppIcon />
                     </a>
-                    <a href='https://www.facebook.com/people/Code-Clause/100080154861285/' target="_blank">
+                    <a href='https://www.facebook.com/people/Code-Clause/100080154861285/' target="_blank" rel="noreferrer">
                         <FacebookIcon />
                     </a>
-                    <a href='https://www.instagram.com/codeclause/' target="_blank">
+                    <a href='https://www.instagram.com/codeclause/' target="_blank" rel="noreferrer">
                         <InstagramIcon />
                     </a>
-                    <a href='https://www.linkedin.com/company/codeclause/' target="_blank">
+                    <a href='https://www.linkedin.com/company/codeclause/' target="_blank" rel="noreferrer">
                         <LinkedInIcon />
                     </a>
                 </Box>
