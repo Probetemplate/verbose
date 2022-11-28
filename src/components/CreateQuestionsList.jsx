@@ -55,9 +55,9 @@ export default function CreateQuestionsList(props) {
                 quizId: Router.query.id,
             });
 
-            if (res.status === 200) {
+            if ((res.status === 200) || (res.status === 201)) {
                 authContext.refresh();
-                // Router.push(res.data?.data?.link);
+                !props.editing && Router.push(res.data?.data?.link);
 
                 globalContext.showSnackBar(res.data.message, {
                     variant: 'success',
@@ -119,9 +119,10 @@ export default function CreateQuestionsList(props) {
                                                 id: props.data?.questions?.length,
                                                 question: "",
                                                 type: "",
-                                                score: 0,
+                                                score: 1,
+                                                time: 60,
                                                 options: [""],
-                                                currectIndex: 0,
+                                                correctIndex: 0,
                                             }]
                                         }));
                                     }}>Add Question</Button>
@@ -202,6 +203,8 @@ export default function CreateQuestionsList(props) {
                                                 <Box sx={{
                                                     display: "flex",
                                                     alignItems: "center",
+                                                    gap: "10px",
+                                                    flexWrap: "wrap",
                                                 }}>
                                                     <TextField
                                                         id="score"
@@ -237,7 +240,7 @@ export default function CreateQuestionsList(props) {
                                                     />
                                                     <TextField
                                                         id="time"
-                                                        label="Time"
+                                                        label="Time (Seconds)"
                                                         variant="standard"
                                                         type="number"
                                                         sx={{

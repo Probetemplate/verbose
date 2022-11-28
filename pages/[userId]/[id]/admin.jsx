@@ -172,7 +172,7 @@ export default function Admin(props) {
                                         },
                                         mb: 2
                                     }}
-                                    value={data.title}
+                                    value={data.title || ""}
                                     onChange={e => setData({ ...data, title: e.target.value })}
                                 />
 
@@ -194,7 +194,7 @@ export default function Admin(props) {
                                             color: "#90caf9"
                                         },
                                     }}
-                                    value={data.description}
+                                    value={data.description || ""}
                                     multiline
                                     onChange={e => setData({ ...data, description: e.target.value })}
                                 />
@@ -243,8 +243,6 @@ export default function Admin(props) {
                                     <Data participent={p} data={data} />
                                 </Box>
                             )}
-
-
 
                         </Box>
                     </TabPanel>
@@ -360,10 +358,10 @@ function Data(props) {
                 // height: "200px",
             }}>
                 <CircularProgressbar
-                    value={userData?.data?.totalCorrectAnswer}
-                    maxValue={userData?.totalQuestionsCount}
+                    value={userData?.data?.totalCorrectAnswer || 0}
+                    maxValue={userData?.totalQuestionsCount || 1}
                     strokeWidth={15}
-                    text={`${(userData?.data?.totalCorrectAnswer / (userData?.totalQuestionsCount) * 100).toFixed(1)}%`}
+                    text={`${((userData?.data?.totalCorrectAnswer || 0) / (userData?.totalQuestionsCount || 1) * 100).toFixed(1)}%`}
                 // background="#0f111a"
                 />
                 <Typography
@@ -376,7 +374,7 @@ function Data(props) {
                         color: "rgb(72 224 186)"
                     }}
                 >
-                    Number Of Currect Answers ({userData?.data?.totalCorrectAnswer}/{userData?.totalQuestionsCount})
+                    Number Of Currect Answers ({userData?.data?.totalCorrectAnswer || 0}/{userData?.totalQuestionsCount || 1})
                 </Typography>
             </Box>
 
@@ -385,10 +383,10 @@ function Data(props) {
                 width: "100px",
             }}>
                 <CircularProgressbar
-                    value={userData?.data?.scoreAcheived}
-                    maxValue={userData?.totalScore}
+                    value={userData?.data?.scoreAcheived || 0}
+                    maxValue={userData?.totalScore || 1}
                     strokeWidth={15}
-                    text={`${(userData?.data?.scoreAcheived / (userData?.totalScore) * 100).toFixed(1)}%`}
+                    text={`${((userData?.data?.scoreAcheived || 0) / ((userData?.totalScore || 1)) * 100).toFixed(1)}%`}
                 // background="#0f111a"
                 />
                 <Typography
@@ -401,7 +399,7 @@ function Data(props) {
                         color: "rgb(72 224 186)"
                     }}
                 >
-                    Total Score Achieved ({userData?.data?.scoreAcheived}/{userData?.totalScore})
+                    Total Score Achieved ({userData?.data?.scoreAcheived || 0}/{userData?.totalScore || 1})
                 </Typography>
             </Box>
 

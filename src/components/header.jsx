@@ -58,7 +58,10 @@ export default function Header(props) {
             bgcolor: "background.secondary",
             boxShadow: "none",
             borderBottom: "2px solid",
-            borderColor: "border.default"
+            borderColor: "border.default",
+            position: props.sticky ? "sticky" : "relative",
+            top: 0,
+            zIndex: 99999,
         }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>

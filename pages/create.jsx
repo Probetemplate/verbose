@@ -24,7 +24,7 @@ export default function Create(props) {
                 id: 1,
                 question: "",
                 type: "",
-                score: 0,
+                score: 1,
                 time: 60,
                 options: [""],
                 correctIndex: 0,

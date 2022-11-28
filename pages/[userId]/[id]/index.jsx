@@ -28,11 +28,18 @@ export default function Quiz(props) {
     const [loadingTime, setLoadingTime] = React.useState(new Date().getTime());
     const [data, setData] = React.useState({});
     const [time, setTime] = React.useState(0);
-    const [timeInterval, setTimeInterval] = React.useState(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [selectedIndex, setSelectedIndex] = React.useState(-1);
 
     async function handel(skip = true) {
         try {
+            if (selectedIndex === -1) {
+                globalContext.showSnackBar("Please Select An Option", {
+                    variant: 'error',
+                    transition: 'slideRight',
+                });
+                return false;
+            }
+
             const res = await axios.post('/api/base/check', {
                 userId: Router.query.userId,
                 quizId: Router.query.id,
@@ -41,6 +48,7 @@ export default function Quiz(props) {
             })
             const data = res.data;
             setData(data);
+            setSelectedIndex(-1);
             setTime(data.currentQuestion?.time);
 
             const currentTime = new Date().getTime();
