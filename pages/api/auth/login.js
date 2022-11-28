@@ -11,11 +11,15 @@ export default async function handeler(req, res) {
 
         const { token } = req.body;
 
-        const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+        const client = new OAuth2Client(
+            process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+            process.env.NEXT_PUBLIC_REDIRECT_URI,
+        );
 
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: process.env.CLIENT_ID
+            audience: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
         });
         const payload = ticket.getPayload();
 
