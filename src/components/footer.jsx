@@ -261,7 +261,7 @@ export default function Footer(props) {
                     >Designed by <a href="https://codeclause.com/" target="_blank" rel="noreferrer" style={{
                         color: "#48DFBA",
                         textDecoration: "none"
-                    }}>CodeClause</a></Typography>
+                    }}>Bishal Nandi</a></Typography>
                 </Box>
 
                 <Box sx={{
