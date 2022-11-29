@@ -61,7 +61,7 @@ export default function Header(props) {
             borderColor: "border.default",
             position: props.sticky ? "sticky" : "relative",
             top: 0,
-            zIndex: 99999,
+            zIndex: 999,
         }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>

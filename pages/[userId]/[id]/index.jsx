@@ -32,7 +32,7 @@ export default function Quiz(props) {
 
     async function handel(skip = true) {
         try {
-            if (selectedIndex === -1) {
+            if (!skip && (selectedIndex === -1)) {
                 globalContext.showSnackBar("Please Select An Option", {
                     variant: 'error',
                     transition: 'slideRight',
@@ -134,7 +134,8 @@ export default function Quiz(props) {
                     maxHeight: "calc(100% - 66px)",
                     display: "grid",
                     placeItems: "center",
-                    bgcolor: "background.primary"
+                    bgcolor: "background.primary",
+                    zIndex: 999,
                 }}>
                     <Loader />
                 </Box>
