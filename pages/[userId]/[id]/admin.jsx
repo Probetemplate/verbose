@@ -14,6 +14,7 @@ import Tab from '@mui/material/Tab';
 
 import EditIcon from '@mui/icons-material/Edit';
 import MonitorIcon from '@mui/icons-material/Monitor';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import Header from '../../../src/components/header'
 import { AuthContext } from '../../../src/contexts/authContext';
@@ -21,6 +22,9 @@ import Banner from "../../../assets/images/banner.png";
 import CreateQuestionsList from '../../../src/components/CreateQuestionsList';
 import axios from 'axios';
 import { CircularProgressbar } from 'react-circular-progressbar';
+import { IconButton } from '@mui/material';
+import { GlobalContext } from '../../../src/contexts/globalContext';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 function a11yProps(index) {
     return {
@@ -46,18 +50,18 @@ export default function Admin(props) {
         setTab(index);
     };
 
+    async function getData() {
+        const res = await axios.post("/api/base/edit", {
+            query: "get",
+            userId: Router.query.userId,
+            quizId: Router.query.id,
+        });
+
+        setData(res.data?.data);
+    }
+
     React.useEffect(() => {
         if (!Router.isReady) return;
-
-        async function getData() {
-            const res = await axios.post("/api/base/edit", {
-                query: "get",
-                userId: Router.query.userId,
-                quizId: Router.query.id,
-            });
-
-            setData(res.data?.data);
-        }
 
         getData();
 
@@ -229,6 +233,20 @@ export default function Admin(props) {
                                     alt="banner"
                                     layout='fill'
                                 />
+
+                                <IconButton aria-label="refresh" size="small" color="info" onClick={getData} sx={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    right: 0,
+                                    m: 1,
+                                    zIndex: 2,
+                                    backgroundColor: "#00000066"
+                                }}>
+                                    <RefreshIcon fontSize='medium' color='#fff' style={{
+                                        color: "#fff",
+                                    }} />
+                                </IconButton>
+
                             </Box>
 
                             {data?.participents?.map((p, i) =>
@@ -240,7 +258,7 @@ export default function Admin(props) {
                                     py: 2,
                                     px: 2,
                                 }}>
-                                    <Data participent={p} data={data} />
+                                    <Data participent={p} refresh={getData} data={data} />
                                 </Box>
                             )}
 
@@ -302,23 +320,51 @@ function Data(props) {
 
     const Router = useRouter();
     const [userData, setUserData] = React.useState({});
+    const authContext = React.useContext(AuthContext);
+    const globalContext = React.useContext(GlobalContext);
+
+    async function getUserData() {
+        const res = await axios.post('/api/base/getData', {
+            userId: Router.query.userId,
+            quizId: Router.query.id,
+            sub: props.participent?.sub
+        });
+
+        setUserData(res.data);
+    }
 
     React.useEffect(() => {
         if (!Router.isReady) return;
 
-        async function getUserData() {
-            const res = await axios.post('/api/base/getData', {
-                userId: Router.query.userId,
+        getUserData();
+
+    }, [Router.isReady]);
+
+    async function deleteParticipent() {
+        try {
+
+            const res = await axios.post("/api/base/deleteParticipent", {
                 quizId: Router.query.id,
                 sub: props.participent?.sub
             });
 
-            setUserData(res.data);
+            if ((res.status === 200) || (res.status === 201)) {
+                authContext.refresh();
+                props.refresh();
+
+                globalContext.showSnackBar(res.data.message, {
+                    variant: 'success',
+                    transition: 'slideRight',
+                });
+            }
+
+        } catch (error) {
+            globalContext.showSnackBar(error.message, {
+                variant: 'error',
+                transition: 'slideRight',
+            });
         }
-
-        getUserData();
-
-    }, [Router.isReady]);
+    }
 
     return (
         <Box sx={{
@@ -326,7 +372,7 @@ function Data(props) {
             width: "100%",
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-around",
+            justifyContent: "space-between",
         }}>
 
             <Box sx={{
@@ -401,6 +447,23 @@ function Data(props) {
                 >
                     Total Score Achieved ({userData?.data?.scoreAcheived || 0}/{userData?.totalScore || 1})
                 </Typography>
+            </Box>
+
+            <Box sx={{
+                position: "relative",
+                // width: "30px",
+                // height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                color: "#fff",
+            }}>
+                <IconButton aria-label="delete" size="small" color="info" onClick={deleteParticipent}>
+                    <DeleteForeverIcon fontSize='medium' color='#fff' style={{
+                        color: "#fff",
+                    }} />
+                </IconButton>
             </Box>
 
         </Box>

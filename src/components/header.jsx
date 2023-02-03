@@ -25,11 +25,28 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import Logo from '../../assets/images/logo2.png';
 import { AuthContext } from '../contexts/authContext';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const AppName = "BHS QUIZ";
+
+const pages = [
+    {
+        title: "Home",
+        href: "https://baruipurhighschool.com/"
+    },
+    {
+        title: "About",
+        href: "https://baruipurhighschool.com/about"
+    },
+    {
+        title: "Academics",
+        href: "https://baruipurhighschool.com/academics/"
+    }
+];
 
 export default function Header(props) {
     const auth = React.useContext(AuthContext);
+    const router = useRouter();
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -40,6 +57,12 @@ export default function Header(props) {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const handleOpenNavLink = (page) => {
+        handleCloseNavMenu();
+        // open in new tab
+        router.push(page.href);
+    }
 
     const [sideBarState, setSideBarState] = React.useState({
         isOpen: false,
@@ -78,8 +101,8 @@ export default function Header(props) {
                             <Image
                                 src={Logo}
                                 alt="Logo"
-                                height={30}
-                                width={30}
+                                height={40}
+                                width={40}
                             />
 
                             <Typography
@@ -96,7 +119,7 @@ export default function Header(props) {
                                     textDecoration: 'none',
                                 }}
                             >
-                                <span style={{ color: "#48e0ba", textDecoration: "none", }}>CODE</span>CLAUSE
+                                {AppName}
                             </Typography>
                         </Box>
                     </Link>
@@ -131,8 +154,8 @@ export default function Header(props) {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                <MenuItem key={page.title} onClick={e => { handleOpenNavLink(page) }}>
+                                    <Typography textAlign="center">{page.title}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -154,8 +177,8 @@ export default function Header(props) {
                             <Image
                                 src={Logo}
                                 alt="Logo"
-                                height={25}
-                                width={25}
+                                height={30}
+                                width={30}
                             />
 
                             <Typography
@@ -172,7 +195,7 @@ export default function Header(props) {
                                     textDecoration: 'none',
                                 }}
                             >
-                                <span style={{ color: "#48e0ba" }}>CODE</span>CLAUSE
+                                {AppName}
                             </Typography>
                         </Link>
                     </Box>
@@ -180,11 +203,11 @@ export default function Header(props) {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
+                                key={page.title}
+                                onClick={e => { handleOpenNavLink(page) }}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                {page.title}
                             </Button>
                         ))}
                     </Box>
@@ -196,7 +219,7 @@ export default function Header(props) {
                                     avatar={<Avatar alt={auth.isAuthenticated ? auth.user.name : "Google"} src={auth.isAuthenticated ? auth.user.avatar : ""} imgProps={{
                                         referrerPolicy: 'no-referrer',
                                     }} />}
-                                    label={auth.user.name}
+                                    label={auth.isAuthenticated ? auth.user.name : "Sign In"}
                                     variant="outlined"
                                     sx={{
                                         cursor: "pointer"
@@ -339,21 +362,23 @@ const SideBar = (Props) => {
                     gap: "1rem"
                 }}>
 
-                    <Box>
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Create A New Quiz">
-                                <Link href="/create" style={{
-                                    textDecoration: 'none',
-                                }}>
-                                    <Button variant="outlined" color="inherit" startIcon={<AddIcon />} sx={{
-                                        color: '#fff'
+                    {auth.isAuthenticated &&
+                        <Box>
+                            <Box sx={{ flexGrow: 0 }}>
+                                <Tooltip title="Create A New Quiz">
+                                    <Link href="/create" style={{
+                                        textDecoration: 'none',
                                     }}>
-                                        Create Quiz
-                                    </Button>
-                                </Link>
-                            </Tooltip>
+                                        <Button variant="outlined" color="inherit" startIcon={<AddIcon />} sx={{
+                                            color: '#fff'
+                                        }}>
+                                            Create Quiz
+                                        </Button>
+                                    </Link>
+                                </Tooltip>
+                            </Box>
                         </Box>
-                    </Box>
+                    }
 
                     <Box sx={{
                         width: "100%",

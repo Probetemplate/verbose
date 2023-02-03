@@ -37,8 +37,8 @@ export default function Loader(props) {
                     <Image
                         src={Logo}
                         alt="Logo"
-                        height={30}
-                        width={30}
+                        height={40}
+                        width={40}
                     />
 
                     <Typography
@@ -57,7 +57,7 @@ export default function Loader(props) {
                             textDecoration: 'none',
                         }}
                     >
-                        <span style={{ color: "#48e0ba" }}>CODE</span>CLAUSE
+                        BARUIPUR HIGH SCHOOL
                     </Typography>
                 </Box>
 

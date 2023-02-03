@@ -3,10 +3,11 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+// import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+// import InstagramIcon from '@mui/icons-material/Instagram';
+// import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import LanguageIcon from '@mui/icons-material/Language';
 
 export default function Footer(props) {
     return (
@@ -23,13 +24,13 @@ export default function Footer(props) {
                 flexWrap: "wrap",
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "space-evenly",
                 px: "2.5rem",
                 py: "2rem"
             }}>
 
                 <Box sx={{
-                    marginBottom: "30px",
+                    // marginBottom: "30px",
                     flex: "0 0 auto",
                     width: {
                         xs: "100%",
@@ -44,7 +45,7 @@ export default function Footer(props) {
                         sx={{
                             fontSize: "1.5em"
                         }}
-                    >COMPANY</Typography>
+                    >ORGANIZATION</Typography>
 
                     <Typography
                         variant="p"
@@ -54,9 +55,8 @@ export default function Footer(props) {
                             fontWeight: 400,
                             color: "rgb(255 255 255 / 70%)"
                         }}
-                    >401, Shreenath Complex<br />
-                        4th Floor, Near Polyhub FoodCourt<br />
-                        Vadgaon Pune, India</Typography>
+                    >Puratan Bazar, Baruipur, South 24-Parganas,<br />
+                        West-Bengal, India, Pin-700144</Typography>
 
                     <br />
 
@@ -69,14 +69,14 @@ export default function Footer(props) {
                             color: "rgb(255 255 255 / 70%)"
                         }}
                     >
-                        <strong>Phone:</strong> +91 7030020973
+                        <strong>Phone:</strong> (033) 24338353
                         <br />
-                        <strong>Email:</strong> official@codeclause.com
+                        <strong>Email:</strong> baruipurhigh.school@gmail.com
                     </Typography>
                 </Box>
 
                 <Box sx={{
-                    marginBottom: "30px",
+                    // marginBottom: "30px",
                     flex: "0 0 auto",
                     width: {
                         xs: "100%",
@@ -88,7 +88,7 @@ export default function Footer(props) {
                         listStyle: "none",
 
                         '& li': {
-                            padding: "10px 0",
+                            padding: "3px 0",
                             display: "flex",
                             alignItems: "center",
 
@@ -119,15 +119,17 @@ export default function Footer(props) {
                     >Useful Links</Typography>
 
                     <ul>
-                        <li><a href="https://codeclause.com/" target="_blank" rel="noreferrer">Home</a></li>
-                        <li><a href="https://codeclause.com/About" target="_blank" rel="noreferrer">About us</a></li>
-                        <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Services</a></li>
-                        <li><a href="https://codeclause.com/Careers" target="_blank" rel="noreferrer">Careers</a></li>
-                        <li><a href="https://internship.codeclause.com" target="_blank" rel="noreferrer">Internship Program</a></li>
+                        <li><a href="https://baruipurhighschool.com/" target="_blank" rel="noreferrer">Home</a></li>
+                        <li><a href="https://baruipurhighschool.com/about" target="_blank" rel="noreferrer">About us</a></li>
+                        <li><a href="https://baruipurhighschool.com/academics" target="_blank" rel="noreferrer">Academics</a></li>
+                        <li><a href="https://baruipurhighschool.com/co-curricular/" target="_blank" rel="noreferrer">Co-Curricular</a></li>
+                        <li><a href="https://baruipurhighschool.com/students/" target="_blank" rel="noreferrer">Students</a></li>
+                        <li><a href="https://baruipurhighschool.com/community/" target="_blank" rel="noreferrer">Community</a></li>
+                        <li><a href="https://baruipurhighschool.com/notice/" target="_blank" rel="noreferrer">Notice</a></li>
                     </ul>
                 </Box>
 
-                <Box sx={{
+                {/* <Box sx={{
                     marginBottom: "30px",
                     flex: "0 0 auto",
                     width: {
@@ -177,9 +179,9 @@ export default function Footer(props) {
                         <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Cloud</a></li>
                         <li><a href="https://codeclause.com/Services" target="_blank" rel="noreferrer">Graphic Design</a></li>
                     </ul>
-                </Box>
+                </Box> */}
 
-                <Box sx={{
+                {/* <Box sx={{
                     marginBottom: "30px",
                     flex: "0 0 auto",
                     width: {
@@ -213,7 +215,7 @@ export default function Footer(props) {
                         }} type="submit" value="Join Program" />
                     </a>
 
-                </Box>
+                </Box> */}
 
             </Box>
 
@@ -246,7 +248,7 @@ export default function Footer(props) {
                                 sm: "left"
                             }
                         }}
-                    >© Copyright <strong>CodeClause</strong>. All Rights Reserved</Typography>
+                    >© Copyright <strong>BHS</strong>. All Rights Reserved</Typography>
                     <Typography
                         variant="h6"
                         component="p"
@@ -258,10 +260,15 @@ export default function Footer(props) {
                                 sm: "left"
                             }
                         }}
-                    >Designed by <a href="https://codeclause.com/" target="_blank" rel="noreferrer" style={{
-                        color: "#48DFBA",
-                        textDecoration: "none"
-                    }}>Bishal Nandi</a></Typography>
+                    >
+                        Designed by <a href="https://www.codewitharif.ml/" target="_blank" rel="noreferrer" style={{
+                            color: "#48DFBA",
+                            textDecoration: "none"
+                        }}>Arif Sardar</a> & <a href="#" target="_blank" rel="noreferrer" style={{
+                            color: "#48DFBA",
+                            textDecoration: "none"
+                        }}>Sinchan</a>
+                    </Typography>
                 </Box>
 
                 <Box sx={{
@@ -293,17 +300,20 @@ export default function Footer(props) {
                         }
                     }
                 }}>
-                    <a href='https://wa.me/917030020973?text=' target="_blank" rel="noreferrer">
+                    {/* <a href='https://wa.me/917030020973?text=' target="_blank" rel="noreferrer">
                         <WhatsAppIcon />
-                    </a>
-                    <a href='https://www.facebook.com/people/Code-Clause/100080154861285/' target="_blank" rel="noreferrer">
+                    </a> */}
+                    <a href='http://fb.me/1858baruipurhighschool' target="_blank" rel="noreferrer">
                         <FacebookIcon />
                     </a>
-                    <a href='https://www.instagram.com/codeclause/' target="_blank" rel="noreferrer">
+                    {/* <a href='https://www.instagram.com/codeclause/' target="_blank" rel="noreferrer">
                         <InstagramIcon />
                     </a>
                     <a href='https://www.linkedin.com/company/codeclause/' target="_blank" rel="noreferrer">
                         <LinkedInIcon />
+                    </a> */}
+                    <a href='https://baruipurhighschool.com/' target="_blank" rel="noreferrer">
+                        <LanguageIcon />
                     </a>
                 </Box>
             </Box>
